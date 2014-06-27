@@ -6,8 +6,9 @@
 		<meta charset="utf-8">
 	</head>
 	<body>
-		<textarea id="editor" disabled>Loading...</textarea>
-
+		<textarea id="editor"></textarea>
+		<button>AA</button>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/channel/bcsocket.js"></script>
 		<script src="/share/share.uncompressed.js"></script>
 		<script src="/share/textarea.js"></script>
@@ -16,12 +17,18 @@
 
 			sharejs.open('hello', 'text', function(error, doc) {
 				window.doc = doc;
-				if (error) {
-					console.log(error);
-				} else {
-					elem.disabled = false;
-					doc.attach_textarea(elem);
-				}
+				elem.disabled = false;
+				doc.attach_textarea(elem);
+
+			 // Get the contents of the document for some reason:
+			 $('button').on("click", function(){
+				console.log(doc.snapshot);
+			 })
+		    
+
+		    doc.on('change', function(op) {
+		        console.log('Version: ' + doc.version);
+		    });
 			});
 		</script>
 	</body>
